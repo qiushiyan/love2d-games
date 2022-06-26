@@ -18,6 +18,9 @@ function love.load()
         y = math.random(radius, love.graphics.getHeight() - radius),
         radius = 50
     }
+    sounds = {
+        blip = love.audio.newSource("assets/sounds/blip.wav", "static")
+    }
     game_state = 1
     score = 0
     timer = 0
@@ -66,15 +69,18 @@ function love.mousepressed(x, y, button, istouch, presses)
         if game_state == 2 then
             if hit(target, x, y) then
                 score = score + 1
+                sounds.blip:play()
                 local upper_x = love.graphics.getWidth() - target.radius
                 local upper_y = love.graphics.getHeight() - target.radius
                 target.x = math.random(target.radius, upper_x)
                 target.y = math.random(target.radius, upper_y)
+            else
+                score = score - 1
             end
         else
             if game_state == 1 then
                 game_state = 2
-                timer = 5
+                timer = 20
             end
         end
     end
