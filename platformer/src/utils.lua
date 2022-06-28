@@ -30,20 +30,3 @@ function spawn_platform(x, y, width, height)
     end
 end
 
-function spawn_enemy(x, y)
-    local enemy = world:newRectangleCollider(x, y, enemy_width, enemy_height, {
-        collision_class = "Enemy"
-    })
-    enemy.direction = 1
-    table.insert(enemies, enemy)
-end
-
-function update_enimies(dt)
-    for i, e in ipairs(enemies) do
-        local ex, ey = e:getPosition()
-        if not enemy_collide(e, {"Platform"}) then
-            e.direction = -e.direction
-        end
-        e:setX(ex + globals.enemy.speed * dt * e.direction)
-    end
-end

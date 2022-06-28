@@ -2,7 +2,6 @@ function love.load()
     require "src/require"
     require_all()
     map:load()
-    spawn_enemy(600, 320)
     love.window.setMode(1000, 768)
 end
 

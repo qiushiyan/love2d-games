@@ -1,13 +1,10 @@
 local globals = require "src/globals"
-local grid_width = globals.player.grid_width
-local grid_height = globals.player.grid_height
-local img_width = globals.sprites.player_sheet:getWidth()
-local img_height = globals.sprites.player_sheet:getHeight()
 local start_position = globals.player.start_position
 local player_width = globals.player.width
 local player_height = globals.player.height
 local player_sheet = globals.sprites.player_sheet
-local grid = anim8.newGrid(grid_width, grid_height, img_width, img_height)
+local player_grid_width = globals.player.grid_width
+local player_grid_height = globals.player.grid_height
 
 player = world:newRectangleCollider(start_position.x, start_position.y, player_width, player_height, {
     collision_class = "Player"
@@ -17,21 +14,15 @@ player:setFixedRotation(true)
 player.speed = 240
 player.width = player_width
 player.height = player_height
-player.animations = {
-    idle = anim8.newAnimation(grid("1-15", 1), 0.05),
-    jump = anim8.newAnimation(grid("1-7", 2), 0.05),
-    run = anim8.newAnimation(grid("1-15", 3), 0.05)
-}
-player.animation = player.animations.idle
+player.animation = animations.player.idle
 player.state = "idle"
 player.direction = 1 -- player facing direction, 1 = right, -1 = left
 player.grounded = true -- is player on ground?
 
 function player:draw()
     local px, py = self:getPosition()
-
-    player.animation:draw(player_sheet, px, py, nil, 0.25 * player.direction, 0.25, grid_width / 4 - 30,
-        grid_height / 2 + 20)
+    player.animation:draw(player_sheet, px, py, nil, 0.25 * player.direction, 0.25, player_grid_width / 4 - 30,
+        player_grid_height / 2 + 20)
 end
 
 function player:update(dt)
@@ -62,11 +53,11 @@ function player:update(dt)
         end
 
         if player.state == "run" and player.grounded then
-            player.animation = player.animations.run
+            player.animation = animations.player.run
         elseif player.state == "idle" then
-            player.animation = player.animations.idle
+            player.animation = animations.player.idle
         elseif player.state == "jump" then
-            player.animation = player.animations.jump
+            player.animation = animations.player.jump
         end
         player.animation:update(dt)
     end
