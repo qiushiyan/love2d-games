@@ -7,6 +7,7 @@ function love.load()
         data()
     end
 
+    globals.sounds.bgm:play()
     load_map(globals.save_data.current_level)
     love.window.setMode(1000, 768)
 end
@@ -19,11 +20,3 @@ function love.draw()
     draw_()
 end
 
-function love.keypressed(key)
-    if key == "up" or key == "space" then
-        if player_collide({"Platform", "Enemy"}) then
-            player.state = "jump"
-            player:applyLinearImpulse(0, -5000)
-        end
-    end
-end

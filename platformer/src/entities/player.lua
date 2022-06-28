@@ -1,12 +1,11 @@
 local globals = require "src/globals"
-local start_position = globals.player.start_position
 local player_width = globals.player.width
 local player_height = globals.player.height
 local player_sheet = globals.sprites.player_sheet
 local player_grid_width = globals.player.grid_width
 local player_grid_height = globals.player.grid_height
 
-player = world:newRectangleCollider(start_position.x, start_position.y, player_width, player_height, {
+player = world:newRectangleCollider(globals.start_position.x, globals.start_position.y, player_width, player_height, {
     collision_class = "Player"
 })
 player:setFixedRotation(true)
@@ -35,6 +34,12 @@ function player:update(dt)
                 load_map("level1")
             end
         end
+
+        -- send player back to start position if he falls off the map or hit enemy
+        if player:enter("Danger") or player:enter("Enemy") then
+            load_map("level1")
+        end
+
         -- update player position and animation
         if player_collide({"Platform", "Enemy"}) then
             player.state = "idle"
@@ -57,10 +62,6 @@ function player:update(dt)
             player.direction = -1
         end
 
-        if player:enter("Danger") then
-            player:destroy()
-        end
-
         if player.state == "run" and player.grounded then
             player.animation = animations.player.run
         elseif player.state == "idle" then
@@ -69,5 +70,15 @@ function player:update(dt)
             player.animation = animations.player.jump
         end
         player.animation:update(dt)
+    end
+end
+
+function love.keypressed(key)
+    if key == "up" or key == "space" then
+        if player_collide({"Platform", "Enemy"}) then
+            player.state = "jump"
+            globals.sounds.jump:play()
+            player:applyLinearImpulse(0, -5000)
+        end
     end
 end

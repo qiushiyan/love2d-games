@@ -7,8 +7,8 @@ function require_all()
     camera = Camera()
     require "src/world"
     require "src/animations"
-    require "src/map"
     require "src/entities/main"
+    require "src/map"
     require "src/utils"
     require "src/draw"
     require "src/update"
