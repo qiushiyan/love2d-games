@@ -19,7 +19,13 @@ local globals = {
     },
     sprites = {
         player_sheet = love.graphics.newImage("sprites/player_sheet.png"),
-        enemy_sheet = love.graphics.newImage("sprites/enemy_sheet.png")
+        enemy_sheet = love.graphics.newImage("sprites/enemy_sheet.png"),
+        flag = love.graphics.newImage("maps/flag.png")
+    },
+    flag_x = 0,
+    flag_y = 0,
+    save_data = {
+        current_level = "level1"
     }
 }
 

@@ -27,6 +27,15 @@ end
 
 function player:update(dt)
     if player.body then
+        -- change map level
+        if collide(globals.flag_x, globals.flag_y, 20, 100, {"Player"}) then
+            if globals.save_data.current_level == "level1" then
+                load_map("level2")
+            elseif globals.save_data.current_level == "level2" then
+                load_map("level1")
+            end
+        end
+        -- update player position and animation
         if player_collide({"Platform", "Enemy"}) then
             player.state = "idle"
             player.grounded = true

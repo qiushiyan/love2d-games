@@ -5,4 +5,5 @@ function draw_()
     draw_enemies()
     player:draw()
     camera:detach()
+    love.graphics.draw(globals.sprites.flag, globals.flag_x, globals.flag_y)
 end

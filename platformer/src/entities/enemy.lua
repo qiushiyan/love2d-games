@@ -35,3 +35,10 @@ function draw_enemies()
         e.animation:draw(enemy_sheet, ex, ey, nil, 0.9 * e.direction, 1, enemy_width / 2, enemy_height / 2 + 10)
     end
 end
+
+function destroy_enemies()
+    for i = #enemies, 1, -1 do
+        enemies[i]:destroy()
+        table.remove(enemies, i)
+    end
+end

@@ -1,7 +1,13 @@
 function love.load()
     require "src/require"
     require_all()
-    load_map()
+
+    if love.filesystem.getInfo("data.lua") then
+        local data = love.filesystem.load("data.lua")
+        data()
+    end
+
+    load_map(globals.save_data.current_level)
     love.window.setMode(1000, 768)
 end
 

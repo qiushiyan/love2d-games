@@ -9,3 +9,11 @@ function spawn_platform(x, y, width, height)
     end
 end
 
+function destroy_platform()
+    for i = #platforms, 1, -1 do
+        if platforms[i] ~= nil then
+            platforms[i]:destroy()
+        end
+        table.remove(platforms, i)
+    end
+end
