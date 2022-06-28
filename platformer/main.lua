@@ -1,7 +1,7 @@
 function love.load()
     require "src/require"
     require_all()
-    map:load()
+    load_map()
     love.window.setMode(1000, 768)
 end
 

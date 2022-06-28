@@ -1,4 +1,4 @@
-function map:load()
+function load_map()
     game_map = sti("maps/level1.lua")
 
     for i, obj in pairs(game_map.layers["Platforms"].objects) do
